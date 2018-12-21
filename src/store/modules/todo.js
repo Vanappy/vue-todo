@@ -23,8 +23,12 @@ const state = {
 }
 
 const actions = {
-  switchTask({commit}, { todo }) {
+  switchTask({ commit }, { todo }) {
     commit('switchTask', todo.id)
+  },
+
+  addTask({ commit }, { input }) {
+    commit('addTask', input)
   }
 }
 
@@ -32,6 +36,14 @@ const mutations = {
   switchTask(state, id) {
     const task = state.todos.find(todo => todo.id === id);
     task.done = !task.done;
+  },
+
+  addTask(state, input) {
+    state.todos.push({
+      id: state.todos.length + 1,
+      task: input,
+      done: false
+    })
   }
 }
 

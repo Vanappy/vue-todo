@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <TaskTable msg="Welcome to Your Vue.js App"/>
+    <Input />
+    <SearchTab/>
+    <TaskTable/>
   </div>
 </template>
 
 <script>
-import TaskTable from './components/TaskTable'
-import 'reset-css'
+  import SearchTab from './components/SearchTab'
+  import TaskTable from './components/TaskTable'
+  import Input from './components/Input'
+  import 'reset-css'
 
-export default {
-  name: 'app',
-  components: {
-    TaskTable
+  export default {
+    name: 'app',
+    components: {
+      Input,
+      SearchTab,
+      TaskTable
+    }
   }
-}
 </script>
 
 <style>

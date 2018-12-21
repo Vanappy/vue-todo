@@ -5,7 +5,7 @@
         <p class="taskTable__name" v-bind:class="{ done: todo.done }">{{todo.task}}</p>
       </div>
       <div class="taskTable__cell">
-        <button class="taskTable__btn" v-bind:class="{ done: !todo.done }" @click="switchTask(todo)">{{todo.done ? '戻す' : '完了'}}</button>
+        <button class="taskTable__btn" v-bind:class="{ done: !todo.done }" @click="switchTask({todo: todo})">{{todo.done ? '戻す' : '完了'}}</button>
       </div>
     </li>
   </ul>
@@ -19,21 +19,18 @@
 
     computed: {
       ...mapState({
-        todos: state => state.todo.todos
+        todos: state => state.todo.todos.filter(todo => {
+          if (state.tab.selected === 'all') return true
+          else if(state.tab.selected === 'done' && todo.done) return true
+          else if (state.tab.selected === 'yet' && !(todo.done)) return true
+          return false
+        })
       })
     },
 
     methods: {
-      switchTask(todo) {
-        this.$store.dispatch('todo/switchTask', {
-          todo: todo
-        })
-      }
+      ...mapActions('todo', ['switchTask'])
     }
-
-    // methods: {
-    //   ...mapActions(['switchTask'])
-    // }
   }
 
 </script>
